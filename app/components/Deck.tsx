@@ -12,5 +12,4 @@ export const deckCombinations = [
   { suit: '♠', rank: 'Q' },
   { suit: '♠', rank: 'K' },
   { suit: '♠', rank: 'A' },
-  // Add the other suits: hearts, diamonds, and clubs
 ];
