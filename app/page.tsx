@@ -128,7 +128,9 @@ export default function BlackjackGame() {
       const finalPlayerValue = calculateHandValue(playerHand);
       const finalDealerValue = calculateHandValue(updatedDealerHand);
 
-      if (finalPlayerValue > 21) {
+      if (finalPlayerValue > 21 && finalDealerValue > 21) {
+        endGame({ winner: '', message: "Both Bust! It's a Draw!" });
+      } else if (finalPlayerValue > 21) {
         endGame({ winner: 'dealer', message: 'Player Bust! Dealer Wins!' });
       } else if (finalDealerValue > 21) {
         endGame({ winner: 'player', message: 'Dealer Bust! Player Wins!' });
@@ -142,12 +144,17 @@ export default function BlackjackGame() {
     }
   }, [isGameOver, playerHand, dealerHand]);
 
+  const placeBet = (amount: number) => {
+    if (amount <= balance) {
+      setBet((prevBet) => prevBet + amount);
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center p-24 bg-black">
       <p className="fixed top-0 w-full justify-center bg-green-700 p-4 rounded-lg">
         Blackjack Game
       </p>
-
 
       <div className="Card">
         {isGameOver && (
@@ -202,7 +209,7 @@ export default function BlackjackGame() {
                     .map((amount) => (
                       <button
                         key={amount}
-                        onClick={() => setBet((prevBet) => prevBet + amount)}
+                        onClick={() => placeBet(amount)}
                         className="w-16 h-16 rounded-full bg-gray-900 text-white"
                       >
                         ${amount}
