@@ -145,8 +145,10 @@ export default function BlackjackGame() {
   }, [isGameOver, playerHand, dealerHand]);
 
   const placeBet = (amount: number) => {
-    if (amount <= balance) {
+    if (bet + amount <= balance) {
       setBet((prevBet) => prevBet + amount);
+    } else {
+      alert('You cannot bet more than your balance.');
     }
   };
 
